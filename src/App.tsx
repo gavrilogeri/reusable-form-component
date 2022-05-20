@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Form from "./components/Form";
+import { InputProps } from "./components/InputComponent";
+import { uuidv4 } from "./utils";
 
 function App() {
+  const [inputValues, setInputValues] = useState({
+    firstName: "",
+    lastName: "",
+    meatType: "",
+    doneness: "",
+  });
+
+  const inputFields: Array<InputProps> = [
+    {
+      label: "First Name",
+      name: "firstName",
+      placeholder: "First Name",
+      type: "text",
+    },
+    {
+      label: "Last Name",
+      name: "firstName",
+      placeholder: "First Name",
+      type: "text",
+    },
+    {
+      label: "Meat Type",
+      name: "meatType",
+      placeholder: "Which type of meat you want? (pork, chicken, beef...)",
+      type: "text",
+    },
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form inputFields={inputFields} />
     </div>
   );
 }
