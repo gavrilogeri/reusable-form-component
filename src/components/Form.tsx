@@ -7,21 +7,18 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ inputFields }) => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
+    const data = new FormData(e.target);
+    console.log(Object.fromEntries(data.entries()));
   };
 
   return (
     <form onSubmit={handleSubmit}>
       {inputFields.map((inputField) => (
-        <InputComponent
-          key={uuidv4()}
-          label={inputField.label}
-          name={inputField.name}
-          placeholder={inputField.placeholder}
-          type={inputField.type}
-        />
+        <InputComponent key={uuidv4()} {...inputField} />
       ))}
+      <button>Submit</button>
     </form>
   );
 };
