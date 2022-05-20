@@ -7,3 +7,9 @@ export function uuidv4() {
     return v.toString(16);
   });
 }
+
+export interface UserType {
+  firstName: string;
+  lastName: string;
+  address: string;
+}

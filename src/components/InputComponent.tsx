@@ -7,16 +7,22 @@ export interface InputProps {
   name: string;
 }
 
-const InputComponent: React.FC<InputProps> = ({
-  placeholder,
-  label,
-  name,
-  type,
-}) => {
+const InputComponent: React.FC<
+  InputProps & {
+    onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+    value: string;
+  }
+> = ({ placeholder, label, name, type, value, onChange }) => {
   return (
     <div className="inputBox">
       <label>{label}</label>
-      <input placeholder={placeholder} name={name} type={type} />
+      <input
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        type={type}
+        onChange={onChange}
+      />
     </div>
   );
 };

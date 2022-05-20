@@ -1,22 +1,33 @@
-import React, { useState } from "react";
-import { uuidv4 } from "../utils";
+import React, { useEffect, useState } from "react";
+import { UserType, uuidv4 } from "../utils";
 import InputComponent, { InputProps } from "./InputComponent";
 
 interface Props {
   inputFields: InputProps[];
+  defaultValues: any;
 }
 
-const Form: React.FC<Props> = ({ inputFields }) => {
+const Form: React.FC<Props> = ({ inputFields, defaultValues }) => {
+  const [values, setValues] = useState(defaultValues);
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    console.log(Object.fromEntries(data.entries()));
+    console.log(values);
   };
+  const onChange = (e: any) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  //   useEffect(() => {
+  //     console.log(values);
+  //   }, [values]);
 
   return (
     <form onSubmit={handleSubmit}>
       {inputFields.map((inputField) => (
-        <InputComponent key={uuidv4()} {...inputField} />
+        <InputComponent
+          value={values[inputField.name]}
+          {...inputField}
+          onChange={onChange}
+        />
       ))}
       <button>Submit</button>
     </form>
