@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./App.scss";
 import Form from "./components/Form";
 import { InputProps } from "./components/InputComponent";
 import { UserType, uuidv4 } from "./utils";
+import background from "./assets/images/formbackground.jpg";
 
 function App() {
   const [inputValues, setInputValues] = useState({
@@ -18,6 +19,8 @@ function App() {
       name: "firstName",
       placeholder: "First Name",
       type: "text",
+      pattern: `\^wooga.\.+$`,
+      errorMessage: "Name must start wooga.(your name here)",
       key: uuidv4(),
     },
     {
@@ -43,7 +46,11 @@ function App() {
 
   return (
     <div className="App">
-      <Form inputFields={inputFields} defaultValues={defaultValues} />
+      <Form
+        inputFields={inputFields}
+        defaultValues={defaultValues}
+        formTitle="User Form"
+      />
     </div>
   );
 }
