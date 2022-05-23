@@ -13,3 +13,10 @@ export interface UserType {
   lastName: string;
   address: string;
 }
+
+export function persistUserToLocalStorages(
+  formTitleKey: string,
+  value: string
+) {
+  localStorage.setItem(formTitleKey, JSON.stringify(value));
+}

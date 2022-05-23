@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export interface InputProps {
   placeholder: string;
@@ -7,6 +7,7 @@ export interface InputProps {
   name: string;
   pattern?: string;
   errorMessage?: string;
+  required?: boolean;
 }
 
 const InputComponent: React.FC<
@@ -14,14 +15,23 @@ const InputComponent: React.FC<
     onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
     value: string;
   }
-> = ({ label, onChange, errorMessage, ...otherProps }) => {
+> = ({ label, onChange, errorMessage, required, ...otherProps }) => {
+  const [isActive, setIsActive] = useState(false);
   return (
     <div className="inputBox">
-      <div className="inputWithLabel">
-        <label>{label}</label>
-        <input onChange={onChange} {...otherProps} />
+      <label>{label}</label>
+      <div>
+        <input
+          onChange={onChange}
+          required={required}
+          onBlur={() => {
+            setIsActive(true);
+          }}
+          className={isActive.toString()}
+          {...otherProps}
+        />
+        <span>{errorMessage}</span>
       </div>
-      <span>{errorMessage}</span>
     </div>
   );
 };

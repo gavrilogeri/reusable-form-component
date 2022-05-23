@@ -5,22 +5,25 @@ import "./formStyles.scss";
 
 interface Props {
   inputFields: InputProps[];
-  defaultValues: any;
+  onSubmit: any;
   formTitle: string;
+  defaultValues: any;
 }
 
-const Form: React.FC<Props> = ({ inputFields, defaultValues, formTitle }) => {
+const Form: React.FC<Props> = ({
+  inputFields,
+  defaultValues,
+  formTitle,
+  onSubmit,
+}) => {
   const [values, setValues] = useState(defaultValues);
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    onSubmit(formTitle, values);
   };
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  //   useEffect(() => {
-  //     console.log(values);
-  //   }, [values]);
 
   return (
     <form onSubmit={handleSubmit} className={"genericForm"}>

@@ -2,17 +2,10 @@ import React, { useState } from "react";
 import "./App.scss";
 import Form from "./components/Form";
 import { InputProps } from "./components/InputComponent";
-import { UserType, uuidv4 } from "./utils";
+import { persistUserToLocalStorages, UserType, uuidv4 } from "./utils";
 import background from "./assets/images/formbackground.jpg";
 
 function App() {
-  const [inputValues, setInputValues] = useState({
-    firstName: "",
-    lastName: "",
-    meatType: "",
-    doneness: "",
-  });
-
   const inputFields: Array<InputProps & { key: string }> = [
     {
       label: "First Name",
@@ -20,6 +13,7 @@ function App() {
       placeholder: "First Name",
       type: "text",
       pattern: `\^wooga.\.+$`,
+      required: true,
       errorMessage: "Name must start wooga.(your name here)",
       key: uuidv4(),
     },
@@ -50,6 +44,7 @@ function App() {
         inputFields={inputFields}
         defaultValues={defaultValues}
         formTitle="User Form"
+        onSubmit={persistUserToLocalStorages}
       />
     </div>
   );
