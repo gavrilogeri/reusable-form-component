@@ -10,6 +10,10 @@ interface Props {
   defaultValues: any;
 }
 
+type InputPropsWIthId = InputProps & {
+  uuid: string;
+};
+
 const Form: React.FC<Props> = ({
   inputFields,
   defaultValues,
@@ -17,6 +21,20 @@ const Form: React.FC<Props> = ({
   onSubmit,
 }) => {
   const [values, setValues] = useState(defaultValues);
+  const [inputFieldsWithKeys, setInputFieldsWithKeys] = useState<
+    InputPropsWIthId[]
+  >([]);
+  useEffect(() => {
+    let inputFieldsWithKeys = inputFields.map((inputField) => {
+      return {
+        ...inputField,
+        uuid: uuidv4(),
+      };
+    });
+
+    setInputFieldsWithKeys(inputFieldsWithKeys);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formTitle, values);
@@ -28,11 +46,12 @@ const Form: React.FC<Props> = ({
   return (
     <form onSubmit={handleSubmit} className={"genericForm"}>
       <h1>{formTitle}</h1>
-      {inputFields.map((inputField) => (
+      {inputFieldsWithKeys.map((inputField) => (
         <InputComponent
           value={values[inputField.name]}
           {...inputField}
           onChange={onChange}
+          key={inputField.uuid}
         />
       ))}
       <button>Submit</button>
