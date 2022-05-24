@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UserType, uuidv4 } from "../utils";
+import { uuidv4 } from "../utils";
 import InputComponent, { InputProps } from "./InputComponent";
 import "./formStyles.scss";
 
@@ -33,7 +33,7 @@ const Form: React.FC<Props> = ({
     });
 
     setInputFieldsWithKeys(inputFieldsWithKeys);
-  }, []);
+  }, [inputFields]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
